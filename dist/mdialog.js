@@ -2,16 +2,16 @@
     /****************
      * Dialog 类
      ****************/
-    var Dialog = function(conf) {
+    var Dialog = function (conf) {
         this.constructor = Dialog;
         this.timestamp = (Date.now()).toString();
         this.id = 'Dialog_' + this.timestamp; // 时间戳
 
         // 选项
         this.content = conf.content || ''; // 内部内容
-        this.onClose = conf.close || function() {}; // 关闭后执行
-        this.onShow = conf.show || function() {}; // 打开后执行
-        this.onReady = conf.ready || function() {}; // 加载完后执行
+        this.onClose = conf.close || function () {}; // 关闭后执行
+        this.onShow = conf.show || function () {}; // 打开后执行
+        this.onReady = conf.ready || function () {}; // 加载完后执行
         this.callbacks = conf.callbacks || {}; // 其他回调
         this.stay = !!conf.stay; // 关闭是隐藏还是删除
         this.unknown = !!conf.unknown; // 不确定宽高
@@ -49,7 +49,7 @@
         if (!!conf.autoShow) this.show(); // 创建即显示
     };
     Dialog.prototype = {
-        _setLayout: function(el) { // 设置 dialog 的布局
+        _setLayout: function (el) { // 设置 dialog 的布局
             if (!el) var el = this.main;
 
             if (this.fullscreen) {
@@ -89,7 +89,7 @@
                 this._setOffset(el, dsTable[this.position]);
             }
         },
-        _setOffset: function(el, ds) { // 设置 dialog 的边缘
+        _setOffset: function (el, ds) { // 设置 dialog 的边缘
             if (!el) var el = this.main;
             if (!ds) var ds = ['top', 'right', 'bottom', 'left'];
             var xy = [0, 0];
@@ -109,7 +109,7 @@
             if (!this.withBorder) {
                 for (var i = 0; i < ds.length; i++) {
                     var di = ds[i];
-                    (function(d) {
+                    (function (d) {
                         var dv = GetStyle(el, d);
                         if (dv == 'auto') return;
                         var borderWidth = GetStyle(el, 'border-' + d +
@@ -143,10 +143,10 @@
             this._contentWidth = el.clientWidth;
             this._contentHeight = el.clientHeight;
         },
-        init: function() {
+        init: function () {
             var el = this.render(this.content, this.style, this.id);
 
-            el.onclick = (function(event) {
+            el.onclick = (function (event) {
                 event = event || window.event;
 
                 var obj = event.srcElement || event.target;
@@ -176,7 +176,7 @@
             AddEvent(window, 'resize', this.constructor.ResizeHandlers[this.id]);
             this.constructor.Table[this.timestamp] = this;
         },
-        render: function(content, style, id) {
+        render: function (content, style, id) {
 
             if (!id) var id = this.id;
 
@@ -221,7 +221,7 @@
 
             return this.wrapper;
         },
-        resize: function(e) {
+        resize: function (e) {
             if (!this.unknown) return;
             if (this.main.scrollHeight <= this.wrapper.clientHeight) {
                 this.main.style.maxHeight = '';
@@ -230,11 +230,11 @@
             this.main.style.maxHeight = this.wrapper.clientHeight + 'px';
             this.main.style.overflow = 'auto';
         },
-        show: function() {
-            setTimeout(function() {
+        show: function () {
+            setTimeout(function () {
                 if(!this.noOverlayOrBlock) {
 
-                    // disableScroll {
+                    // disableScroll: {
                     if (!this._bgLock) {
                         // 修改外部后需要恢复的量
                         this._bgLock = true;
@@ -244,12 +244,12 @@
                         this._bodyTopInStyle = document.body.style.top;
                         this._bodyLeft = GetStyle(document.body, 'left');
                         this._bodyLeftInStyle = document.body.style.left;
-                        this._bodyWidth = document.body.style.width; //GetStyle(document.body,'width');
+                        this._bodyWidth = document.body.style.width; // GetStyle(document.body,'width');
                         this._bodyClientWidth = document.body.clientWidth;
                         var _winScrollX = (window.pageXOffset !== undefined) ? window.pageXOffset : (document.documentElement || document.body.parentNode || document.body).scrollLeft;
                         var _winScrollY = (window.pageYOffset !== undefined) ? window.pageYOffset : (document.documentElement || document.body.parentNode || document.body).scrollTop;
-                        this._bodyScrollTop = _winScrollY; //document.body.scrollTop;
-                        this._bodyScrollLeft = _winScrollX; //document.body.scrollLeft;
+                        this._bodyScrollTop = _winScrollY; // document.body.scrollTop;
+                        this._bodyScrollLeft = _winScrollX; // document.body.scrollLeft;
                         this._bodyOverflow = GetStyle(document.body, 'overflow');
                         this._bodyOverflowInStyle = document.body.style.overflow;
 
@@ -295,15 +295,15 @@
 
                         for(var ii = 0, llen = pres.length; ii < llen; ii++) {
                             this.main.style[pres[ii] + 'transform'] = 'translate(' + xbefore + 'px,' + ybefore + 'px)';
-                            //console.log('this.main -> transform(' + xbefore + ',' + ybefore + ')');
+                            // console.log('this.main -> transform(' + xbefore + ',' + ybefore + ')');
                             this.main.style[pres[ii] + 'transition'] = 'transform ' + this.slideConf;
-                            //console.log('this.main -> transition(transform 200ms ease)');
+                            // console.log('this.main -> transition(transform 200ms ease)');
                         }
 
-                        window.setTimeout(function() {
+                        window.setTimeout(function () {
                             for(var ii = 0, llen = pres.length; ii < llen; ii++) {
                                 this.main.style[pres[ii] + 'transform'] = 'translate(' + this._xoffset + 'px,' + this._yoffset + 'px)';
-                                //console.log('this.main -> transform(' + this._xoffset + ',' + this._yoffset + ')');
+                                // console.log('this.main -> transform(' + this._xoffset + ',' + this._yoffset + ')');
                             }
                         }.bind(this), 10);
                     }
@@ -317,20 +317,20 @@
 
             }.bind(this), 100);
         },
-        hide: function() {
+        hide: function () {
             if(!this.noOverlayOrBlock) {
 
-                // restoreScroll {
+                // restoreScroll: {
                 // 外部恢复
                 if (this._bgLock && this._bodyScrollTop != null) {
-                    document.body.style.position = this._bodyPositionInStyle; //this._bodyPosition;
+                    document.body.style.position = this._bodyPositionInStyle; // this._bodyPosition;
                     document.body.style.width = this._bodyWidth;
-                    document.body.style.top = this._bodyTopInStyle; //this._bodyTop;
-                    document.body.style.left = this._bodyLeftInStyle; //this._bodyLeft;
-                    //document.body.scrollTop = this._bodyScrollTop;
-                    //document.body.scrollLeft = this._bodyScrollLeft;
+                    document.body.style.top = this._bodyTopInStyle; // this._bodyTop;
+                    document.body.style.left = this._bodyLeftInStyle; // this._bodyLeft;
+                    // document.body.scrollTop = this._bodyScrollTop;
+                    // document.body.scrollLeft = this._bodyScrollLeft;
                     window.scrollTo(this._bodyScrollLeft, this._bodyScrollTop);
-                    document.body.style.overflow = this._bodyOverflowInStyle; //this._bodyOverflow;
+                    document.body.style.overflow = this._bodyOverflowInStyle; // this._bodyOverflow;
                     this._bgLock = false;
                 }
                 // }
@@ -339,7 +339,7 @@
 
             this.wrapper.style.display = 'none';
         },
-        remove: function() {
+        remove: function () {
             RemoveEvent(window, 'resize', this.constructor.ResizeHandlers[this.id]);
             delete this.constructor.ResizeHandlers[this.id];
 
@@ -350,16 +350,16 @@
 
             delete this.constructor.Table[this.timestamp];
         },
-        close: function() {
+        close: function () {
             this.stay ? this.hide() : this.remove();
         }
     };
     Dialog.ResizeHandlers = {};
     Dialog.Table = {};
-    Dialog.Create = function(conf) {
+    Dialog.Create = function (conf) {
         return new(this)(conf);
     };
-    Dialog.Alert = function(text, conf) {
+    Dialog.Alert = function (text, conf) {
         var conf = conf || {};
         var a = new(this)({
             content: '<div class="dialog-alert-wrapper"><div class="content">' + text + '</div>'
@@ -372,12 +372,12 @@
             unknown: true
         });
         if(conf.time) {
-            window.setTimeout((function() {
+            window.setTimeout((function () {
                 this.close();
             }).bind(a), conf.time * 1000);
         }
     };
-    Dialog.Confirm = function(content, sure, cancel, conf) {
+    Dialog.Confirm = function (content, sure, cancel, conf) {
         var conf = conf || {};
         var c = new(this)({
             content: '<div class="dialog-confirm-wrapper"><div class="content">' + content + '</div><div class="footer">'
@@ -477,10 +477,10 @@
         event.stopPropagation = FixEvent.stopPropagation;
         return event;
     };
-    FixEvent.preventDefault = function() {
+    FixEvent.preventDefault = function () {
         this.returnValue = false;
     };
-    FixEvent.stopPropagation = function() {
+    FixEvent.stopPropagation = function () {
         this.cancelBubble = true;
     };
 
