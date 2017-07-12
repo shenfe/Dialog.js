@@ -72,3 +72,9 @@ Dialog.Create({
 ## IE兼容性
 
 IE7 及以上。不确定内容宽高的对话框建议仅在移动端使用。
+
+## License
+
+[MIT](http://opensource.org/licenses/MIT)
+
+Copyright (c) 2016-present, [shenfe](https://github.com/shenfe)
