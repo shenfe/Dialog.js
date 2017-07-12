@@ -12,24 +12,28 @@
 
 ### new
 
-    var dialog1 = new Dialog({
-        content: 'This is a dialog.',
-        stay: 1
-    });
-    dialog1.show();
+```js
+var dialog1 = new Dialog({
+    content: 'This is a dialog.',
+    stay: 1
+});
+dialog1.show();
+```
 
 `dialog1.main` 是创建的 dom 节点，但不是最外层节点；最外层节点是 `dialog1.wrapper`。
 
 ### 工厂
 
-    Dialog.Create({
-        content: 'This is a dialog.',
-        autoShow: 1,
-        position: 2,
-        width: '50%',
-        height: '50%',
-        top: 100
-    });
+```js
+Dialog.Create({
+    content: 'This is a dialog.',
+    autoShow: 1,
+    position: 2,
+    width: '50%',
+    height: '50%',
+    top: 100
+});
+```
 
 不需要控制返回对象，可以简单这么做。
 
