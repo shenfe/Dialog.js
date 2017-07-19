@@ -43,9 +43,9 @@ Dialog.Confirm(contentString, sureCallback, cancelCallback, conf)
 弹出确认框，显示一段文字，确认按钮和取消按钮各自定义了按钮文字和回调：
 
 ```js
-Dialog.Confirm('This is an confirming dialog.', function() {
+Dialog.Confirm('This is an confirming dialog.', function () {
         console.log('You choose 1.');
-    }, function() {
+    }, function () {
         console.log('You choose 0.');
     }, {
         sureText: 'ok', // 确认按钮的文字
