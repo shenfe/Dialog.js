@@ -39,8 +39,8 @@
 .dialog-wrapper .dialog {
     margin: 0 auto;
     color: #000;
-    background-color: #fff;
-    border: 10px solid #eee;
+    /* background-color: #fff;
+    border: 10px solid #eee; */
     border-radius: 2px;
     visibility: visible;
     padding: 0px;
