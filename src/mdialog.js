@@ -147,6 +147,12 @@ Dialog.prototype = {
     init: function () {
         var el = this.render(this.content, this.style, this.id);
 
+        var inClass = function (el, className) {
+            if (el === document.body) return false;
+            if (el.className.indexOf(className) >= 0) return true;
+            return inClass(el.parentNode, className);
+        };
+
         el.onclick = (function (event) {
             event = event || window.event;
 
@@ -157,7 +163,7 @@ Dialog.prototype = {
                     this.close();
                     this.onClose();
                 }
-            } else if (obj.className.indexOf('btn-close') >= 0) {
+            } else if (inClass(obj, 'btn-close')) {
                 var callbackName = obj.getAttribute('callback');
                 if(this.callbacks && callbackName && this.callbacks[callbackName]) {
                     this.callbacks[callbackName]();
@@ -166,9 +172,7 @@ Dialog.prototype = {
                 this.onClose();
             }
 
-
-            event.preventDefault ? event.preventDefault() : (
-                event.returnValue = false);
+            // event.preventDefault ? event.preventDefault() : (event.returnValue = false);
         }).bind(this);
 
         this.onReady(el);
